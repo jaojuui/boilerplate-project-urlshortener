@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.use("/public", express.static(`${process.cwd()}/public`));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
@@ -22,7 +23,6 @@ app.post("/api/shorturl", (req, res) => {
     res.json({ original_url: host, short_url: address });
   });
 });
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Your first API endpoint
 app.get("/api/hello", function (req, res) {
