@@ -8,7 +8,7 @@ const dns = require("dns");
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
-let index = 1; // ตัวนับ short URL (เช่น 1, 2, 3, ...)
+let index = 1;
 let url_all = [];
 app.use(cors());
 
@@ -36,7 +36,6 @@ app.get("/api/shorturl/:short_url", (req, res) => {
   try {
     const short_url = Number(req.params.short_url);
     const url = url_all[short_url];
-    // res.json({ currentURL: `${url}` });
     res.redirect(url);
   } catch (error) {
     res.json({ error: "invalid url" });
