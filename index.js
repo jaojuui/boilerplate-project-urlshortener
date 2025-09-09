@@ -17,12 +17,16 @@ app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 app.post("/api/shorturl", (req, res) => {
-  const host = new URL(req.body.url_input);
-  // dns.lookup(host, (err, address) => {
-  //   if (err) return console.log(err);
-  //   res.json({ original_url: req.body.url_input, short_url: address });
-  // });
-  res.json({ greeting: `${host}` });
+  try {
+    const host = new URL(req.body.url_input);
+    const hostName = host.hostname;
+    dns.lookup(hostName, (err, address) => {
+      if (err) return console.log(err);
+      res.json({ original_url: req.body.url_input, short_url: address });
+    });
+  } catch (error) {
+    res.json({ error: "invalid url" });
+  }
 });
 
 // Your first API endpoint
