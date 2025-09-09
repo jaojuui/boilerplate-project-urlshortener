@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
 app.post("/api/shorturl", (req, res) => {
   try {
     const host = new URL(req.body.url);
-    if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+    if (host.protocol !== "http:" && host.protocol !== "https:") {
       return res.json({ error: "invalid url" });
     }
     const hostName = host.hostname;
