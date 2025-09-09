@@ -22,7 +22,7 @@ app.post("/api/shorturl", (req, res) => {
   try {
     const host = new URL(req.body.url_input);
     const hostName = host.hostname;
-    url_all[index] = req.body.url_input;
+    url_all[index] = req.body.url;
     dns.lookup(hostName, (err, address) => {
       if (err) return console.log(err);
       res.json({ original_url: host, short_url: index });
