@@ -8,6 +8,8 @@ const dns = require("dns");
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
+let index = 1; // ตัวนับ short URL (เช่น 1, 2, 3, ...)
+let url_all = [];
 app.use(cors());
 
 app.use("/public", express.static(`${process.cwd()}/public`));
@@ -17,8 +19,6 @@ app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 app.post("/api/shorturl", (req, res) => {
-  let index = 1; // ตัวนับ short URL (เช่น 1, 2, 3, ...)
-  let url_all = [];
   try {
     const host = new URL(req.body.url_input);
     const hostName = host.hostname;
