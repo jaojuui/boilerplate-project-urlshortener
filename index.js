@@ -17,16 +17,23 @@ app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 app.post("/api/shorturl", (req, res) => {
+  let index = 1; // ตัวนับ short URL (เช่น 1, 2, 3, ...)
+  let url_all = [];
   try {
     const host = new URL(req.body.url_input);
     const hostName = host.hostname;
     dns.lookup(hostName, (err, address) => {
       if (err) return console.log(err);
+      url_all[index++] = address;
       res.json({ original_url: req.body.url_input, short_url: address });
     });
   } catch (error) {
     res.json({ error: "invalid url" });
   }
+});
+app.get("/api/shorturl/:short_url", (req, res) => {
+  const url = url_all[req.query.short_url];
+  res.redirect(url);
 });
 
 // Your first API endpoint
