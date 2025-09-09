@@ -32,8 +32,12 @@ app.post("/api/shorturl", (req, res) => {
   }
 });
 app.get("/api/shorturl/:short_url", (req, res) => {
-  const url = req.params.short_url;
-  res.json({ currentURL: `${url}` });
+  try {
+    const short_url = Number(req.params.short_url);
+    res.json({ currentURL: `${short_url}` });
+  } catch (error) {
+    res.json({ error: error });
+  }
   // res.redirect(url);
 });
 
