@@ -24,7 +24,7 @@ app.post("/api/shorturl", (req, res) => {
     const hostName = host.hostname;
     dns.lookup(hostName, (err, address) => {
       if (err) return console.log(err);
-      url_all[index++] = address;
+      url_all[index++] = hostName;
       res.json({ original_url: req.body.url_input, short_url: index });
     });
   } catch (error) {
@@ -33,7 +33,8 @@ app.post("/api/shorturl", (req, res) => {
 });
 app.get("/api/shorturl/:short_url", (req, res) => {
   const url = url_all[req.query.short_url];
-  res.redirect(url);
+  res.json({ currentURL: url });
+  // res.redirect(url);
 });
 
 // Your first API endpoint
