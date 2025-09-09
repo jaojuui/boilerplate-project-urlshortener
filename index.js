@@ -1,7 +1,9 @@
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const dns = require("dns");
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -9,6 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.use("/public", express.static(`${process.cwd()}/public`));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
   res.sendFile(process.cwd() + "/views/index.html");
@@ -28,4 +31,7 @@ app.get("/api/hello", function (req, res) {
 
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
+});
+app.post("/name", (req, res) => {
+  res.json({ name: `${req.query.first} ${req.query.last}` });
 });
