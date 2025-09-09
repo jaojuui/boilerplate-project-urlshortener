@@ -7,7 +7,7 @@ const dns = require("dns");
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/public", express.static(`${process.cwd()}/public`));
@@ -20,7 +20,7 @@ app.post("/api/shorturl", (req, res) => {
   const host = new URL(req.body.url_input);
   dns.lookup(host, (err, address) => {
     if (err) return console.log(err);
-    res.json({ original_url: host, short_url: address });
+    res.json({ original_url: req.body.url_input, short_url: address });
   });
 });
 
