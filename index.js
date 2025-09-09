@@ -34,7 +34,8 @@ app.post("/api/shorturl", (req, res) => {
 app.get("/api/shorturl/:short_url", (req, res) => {
   try {
     const short_url = Number(req.params.short_url);
-    res.json({ currentURL: `${short_url}` });
+    const url = url_all[short_url];
+    res.json({ currentURL: `${url}` });
   } catch (error) {
     res.json({ error: error });
   }
