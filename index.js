@@ -25,7 +25,7 @@ app.post("/api/shorturl", (req, res) => {
     url_all[index] = req.body.url_input;
     dns.lookup(hostName, (err, address) => {
       if (err) return console.log(err);
-      res.json({ original_url: req.body.url_input, short_url: index });
+      res.json({ original_url: host, short_url: index });
       index++;
     });
   } catch (error) {
