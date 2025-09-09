@@ -32,7 +32,7 @@ app.post("/api/shorturl", (req, res) => {
   }
 });
 app.get("/api/shorturl/:short_url", (req, res) => {
-  const url = req.query.short_url;
+  const url = url_all[req.params.short_url];
   res.json({ currentURL: url });
   // res.redirect(url);
 });
