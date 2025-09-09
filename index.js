@@ -39,7 +39,7 @@ app.get("/api/shorturl/:short_url", (req, res) => {
     // res.json({ currentURL: `${url}` });
     res.redirect(url);
   } catch (error) {
-    res.json({ error: error });
+    res.json({ error: "invalid url" });
   }
 });
 
