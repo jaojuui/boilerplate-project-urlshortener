@@ -22,9 +22,10 @@ app.post("/api/shorturl", (req, res) => {
   try {
     const host = new URL(req.body.url_input);
     const hostName = host.hostname;
+    url_all[index] = hostName;
+    index++;
     dns.lookup(hostName, (err, address) => {
       if (err) return console.log(err);
-      url_all[index++] = hostName;
       res.json({ original_url: req.body.url_input, short_url: index });
     });
   } catch (error) {
